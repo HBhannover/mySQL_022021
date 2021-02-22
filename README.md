@@ -13,3 +13,10 @@ Database besteht aus Server (Data speichern) und Client (Query senden). Client h
 Zum Beispiel:
 Database Oracle --> Clients: SQLDeveloper (GUI), SQLPlus (Command), Aquadata Studio, Toad, etc ..
 Database MySQL --> Clients: MySQLWorkbench (GUI), MySQL CommanLinetool, Toad, etc ..
+
+2. Date/Times - Formats
+
+DATE : 		  YYYY-MM-DD
+TIME:		    HH:MM:SS
+DATETIME:		YYYY-MM-DD HH:MM:SS
+TIMESTAMP:	YYYYMMDDHHMMSS
