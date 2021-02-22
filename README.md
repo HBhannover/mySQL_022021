@@ -16,7 +16,7 @@ Database MySQL --> Clients: MySQLWorkbench (GUI), MySQL CommanLinetool, Toad, et
 
 2. Date/Times - Formats
 
-DATE : 		  YYYY-MM-DD
-TIME:		    HH:MM:SS
-DATETIME:		YYYY-MM-DD HH:MM:SS
-TIMESTAMP:	YYYYMMDDHHMMSS
+- DATE : 		  YYYY-MM-DD
+- TIME:		    HH:MM:SS
+- DATETIME:		YYYY-MM-DD HH:MM:SS
+- TIMESTAMP:	YYYYMMDDHHMMSS
