@@ -31,12 +31,12 @@ Describe Private;
 
 #3. Inserting data into a table with: INSERT INTO <Table-Name> VALUES(value1, value2, etc..):
 Use BachTestDB3;
-Insert into Drinks Values ('Becks', 3, 'Krombacker'); 				# ==> standard
+Insert into Drinks Values ('Becks', 3, 'Krombacker'); 				        # ==> standard
 Insert into Drinks Values ('Gilde', 4, NULL); 						# ==> A data without third component
 Insert into Drinks (Sum, Beers, Favorite) values(5, 'Herrenhäuser Beer', 'Krombacher'); # ==> Redefine the order
 Insert into Drinks Values ('Gilde', 4, 'Raderberger'); 
 Insert into Drinks Values ('Erdinger', 10, 'Erdinger');
-Insert into bachtestdb3.drinks Values (null, 0 , NULL ); 			# ==> Sometimes gets fail, we need to call: <Database>.<Table>
+Insert into bachtestdb3.drinks Values (null, 0 , NULL ); 			        # ==> Sometimes gets fail, we need to call: <Database>.<Table>
 Insert into bachtestdb3.drinks Values ('Ventil', Null , nULL ); 
 Insert into Drinks Values('ALibabeer', 123, 'Ventil');
 Insert into Drinks Values('Juhup', 321, 'BeerAlpen');
@@ -45,12 +45,12 @@ Insert into Drinks Values('Chacha', 1000, 'AleBi');
 #4. Select Data from a table in a data base:
 Use BachTestDB3;
 Select * from Drinks; 						# ==> From this database (bachtestdb2)
-Select * from bach.programming; 			# ==> Data from an other database (bach)
+Select * from bach.programming; 			        # ==> Data from an other database (bach)
 
 #5. Retrieve Data from a table (Gọi và chỉnh sửa):
 Use BachTestDB3;
   #5.1 Retrieve Data with a alias-name:
-  Select Beers Be, Sum Su, Favorite Fa From Drinks; 	# ==> select some Columns and change the name to a alias-name
+  Select Beers Be, Sum Su, Favorite Fa From Drinks; 	        # ==> select some Columns and change the name to a alias-name
   #5.2 Retrieve Data and change the data:
   Select Beers, Sum + 100, Favorite Fave from Drinks;
   
@@ -63,14 +63,14 @@ Select * From Drinks Where Favorite = 'Krombacher';
 Select * From Drinks Where Sum = 3;
 Select * From Drinks Where Beers is NULL; 				# ==> By compare with NULL muss 'is' be used 
 Select * From Drinks Where Favorite is null;
-Select Distinct * From Drinks;     						# Filtering unique data (Nur die Daten, die einzigartig sind) 
-Select Distinct Sum From Drinks	;   					# Filtering only unique data of Sum ( Nur die Sum-Data, die einzigartig sind)	
+Select Distinct * From Drinks;     					# ==> Filtering unique data (Nur die Daten, die einzigartig sind) 
+Select Distinct Sum From Drinks	;   					# ==> Filtering only unique data of Sum ( Nur die Sum-Data, die einzigartig sind)	
 
 #7. Logical Operators (AND, OR, NOT)
 Use BachTestDB3;
 Select * from Drinks;
 Select * From Drinks Where Sum = 3 AND Favorite = 'Krombacker';  	 # ==> There is No differentation between 'o' and 'ó'
-Select * From Drinks Where Beers = 'Herrenhauser Beer' AND Sum = 5;  # ==> There is NO differentiation between 'a' and 'ä'
+Select * From Drinks Where Beers = 'Herrenhauser Beer' AND Sum = 5;      # ==> There is NO differentiation between 'a' and 'ä'
 Select * From Drinks Where Beers = 'Gilde' OR Sum = 10;
 Select * From Drinks Where NOT Sum = 4;
 
@@ -86,7 +86,7 @@ Select * From Drinks Where Sum Not IN (4, 5, 10);
 	##### Importent Pattern: #####
 	# % ==> Many Characters      #
 	# - ==> Only one character   #
-    ##############################
+        ##############################
 Use BachTestDB3;
 Select * from Drinks;
 Select * From Drinks Where Favorite Like'K%';      # ==> It means: 'K + any characters'
@@ -99,8 +99,8 @@ Select * From Drinks Where Favorite Not Like 'K%'; # ==> It means: Take all, whe
 Select * From Drinks Where Beers Not Like '_____'; # ==> It means: Take all, where NOT'only 5 character'
 
 ################### TABLES Altering/Modify/Changing #####################
-# ALTER + ADD, DROP, MODIFY, RENAME										#
-# Difference: DROP, DELETE FROM, TRUNCATE								#
+# ALTER + ADD, DROP, MODIFY, RENAME					#
+# Difference: DROP, DELETE FROM, TRUNCATE				#
 #########################################################################
 #0. Rename a Table:
 Use BachTestDB3;
@@ -111,11 +111,11 @@ Use BachTestDB3;
 Select * from private;
 Alter Table Private Add(Smartphones varchar(10));    # ==> Add a column with format varchar(10) to table Private.
 Alter Table Private Modify Column City varchar(11);  # ==> Modify Format of a Column. 
-Describe Private; 									 # ==> Show Table Private-Schema to check Formats
+Describe Private; 				     # ==> Show Table Private-Schema to check Formats
 Alter Table Private Rename Column City to Cities;    # ==> Rename a column-name
 
 #2. DROP, DELETE FROM, TRUNCATE ||| ROLLBACK ||| SET autocommit ||| SET SQL_SAFE_UPDATES
-	#2.1 DROP ==> Clear Table-Structure + Data, can't rollback anymore
+    #2.1 DROP ==> Clear Table-Structure + Data, can't rollback anymore
     Drop Table Talents;
     Describe Talents;
     Rollback;
@@ -130,15 +130,15 @@ Alter Table Private Rename Column City to Cities;    # ==> Rename a column-name
     
     #2.3 DELETE ==> Clear only Data of Table, allow to rollback. Table-Structure still there
     SET autocommit = 0;		  				# ==> Don't commit automatic by DELETE anymore
-    SET SQL_SAFE_UPDATES = 0; 				# ==> Allow automatic update by DELETE
+    SET SQL_SAFE_UPDATES = 0; 				        # ==> Allow automatic update by DELETE
     
-	Insert into Travelcountries Values('Swiss', '5', 'Germany');
+    Insert into Travelcountries Values('Swiss', '5', 'Germany');
     Select * from Travelcountries;
     Delete From Travelcountries;
     Describe Travelcountries;
     Rollback;
     Select * from Travelcountries;
-    Commit; 								# ==> To commit the change to Database, because its not automatic anymore
+    Commit; 							# ==> To commit the change to Database, because its not automatic anymore
     
 
 
