@@ -140,7 +140,97 @@ Alter Table Private Rename Column City to Cities;    # ==> Rename a column-name
     Select * from Travelcountries;
     Commit; 							# ==> To commit the change to Database, because its not automatic anymore
     
+    Select * From Drinks where Favorite like 'K%';
+ 
+################### TABLES FUNCTION ####################################
+# STRING - Function					#
+# Numeric - Function					#
+# Date - Function					#
+# Aggregate - Function					#
+######################################################################### 
 
+# 1: STRING-Function: UPPER(), LOWER(), LENGTH(), TRIM(), NSTR(), SUBSTR(), SUBSTRING(), CONCAT()
+# Link to All Functions: https://dev.mysql.com/doc/refman/8.0/en/string-functions.html
+-- 1.1: UPPER():
+ Select Upper('Bach');  # -->Result: 'BACH'
+ Select Upper(Countries) from Travelcountries; # --> Result: All Countries names are capitalized 
+ Select Upper(Countries) UpperName from Travelcountries; # --> Result: All Countries names are capitalized and written in column "UpperName"
+ 
+ -- 1.2: LOWER()
+ Select Lower('Bach');  # -->Result: 'bach'
+ Select Lower(Countries) from Travelcountries; # --> Result: All Countries names are written in lowercase
+ Select Lower(Countries) LowerName from Travelcountries; # --> Result: All Countries names are written in lowercase in column "LowerName"
+ 
+ -- 1.3: LENGTH()
+ Select Length('Welcome'); # --> Result: 7
+ Select Length(Favorite) from Travelcountries; # --> Length of Values in Column 'Favorite'
+ Select * From Travelcountries Where Length(Favorite) = 5; # --> Select all Favorite's values, where length = 5
+ 
+ -- 1.4: TRIM():
+ Select Trim('  Bach    '); # --> Result: 'Bach'
+ Select Trim('z' from ('zzzBachzz')); # --> Result: 'Bach'
+ 
+ -- 1.5: NSTR():
+ Select INSTR('Welcome', 'o'); # --> Position of Character 'o' is: 5
+ 
+ -- 1.6: SUBSTR() and SUBSTRING():
+ Select SUBSTR('Welcome', 2, 3); # --> From Character 'e' count 3 characters --> Result: 'elc'
+ Select SUBSTRING('Welcome', 2, 3); # --> From Character 'e' count 3 characters --> Result: 'elc'
+ Select SUBSTR(Countries, 2, 3) From Travelcountries;
+ 
+ -- 1.7: CONCAT():
+ Select Concat('Bach', 'Deptrai'); # --> Bach + Deptrai = BachDeptrai
+
+# 2 Numeric Functions: ABS(), SQRT(), MOD(), POWER(), TRUNCATE(), GREATEST() and LEAST()
+-- 2.1: ABS():
+Select ABS(-50); # --> 50
+Select ABS(50); # --> 50
+
+-- 2.2 SQRT():
+Select Sqrt (25); # --> 5
+
+-- 2.3: POWER():
+Select Power(2, 3); # --> 2*2*2 = 8
+
+-- 2.4: TRUNCATE():
+Select Truncate(1234.567, 2); # --> 1234.56
+Select Truncate(1234.567, -2); # --> 1200
+Select Truncate(1234567, -2); # --> 1234500
+
+-- 2.5: GREATEST() and LEAST()
+Select Greatest(100, 101, 102, 103); # --> 103
+Select Least (100, 101, 102, 103); # --> 101
+
+# 3. Date - Functions: CURDATE() and CURRENT_DATE(), CURTIME() and CURRENT_TIME(), NOW(), SYSDATE(), MONTH(), YEAR(), DAY()
+
+-- 3.1: CURDATE() and CURRENT_DATE():
+Select Current_date(); # --> JJJJ-MM-DD
+Select Curdate(); # --> JJ-MM-DD
+
+-- 3.2: CURETIME() and CURRENT_TIME():
+Select Current_time(); # --> HH:MM:SS
+Select Curtime(); # --> HH:MM:SS
+
+-- 3.3: NOW():
+Select Now(); # --> JJJJ:MM:DD HH:MM:SS
+
+-- 3.4: SYSDATE()
+Select Sysdate(); # --> JJJJ:MM:DD HH:MM:SS
+
+-- 3.5: YEAR(), MONTH(), DAY()
+Select YEAR('2021-03-10'); # --> 2021
+Select MONTH('2021-03-10'); # --> 03
+Select DAY('2021-03-10'); # --> 10
+
+Select * From Employees Where Month(Hire_Date) = "6";
+Select * From Employees Where Monthname(Hire_Date) = "JUNE";
+
+# 4. Aggregate-Functions: AVG(), SUM(), MIN(), MAX(), COUNT()
+Select AVG(SALARY) From Employees;
+Select SUM(SALARY) From Employees;
+Select MIN(SALARY) From Employees;
+Select MAX(SALARY) From Employees;
+Select COUNT(*) From Employees;
 
 
 
