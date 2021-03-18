@@ -232,9 +232,82 @@ Select MIN(SALARY) From Employees;
 Select MAX(SALARY) From Employees;
 Select COUNT(*) From Employees;
 
+################### TABLES Order of Execution ##########################
+#
+#        WHERE >> GROUP BY >> HAVING >> ORDER BY	#
+#				
+######################################################################### 
+Select * from world.city;
+Select Name, count(*) from world.city group by Name;
 
+Select CountryCode, SUM(Population) From world.city 		
+	Where CountryCode <> 'AFG' And CountryCode <> 'USA'     
+	group by CountryCode 									 	
+	Having SUM(Population) > 20000000 
+	Order By (Population) DESC;                     #-- > DESC: Order should be descending 
 
+################################### MULTI TABLES ########################################
+# !!!Conditions: same number of Columns, similar data types, in the same order!!!!
+# UNION :           Table1(1, 2, 3), Table2(3, 4, 5) --> UNION: (1, 2, 3, 4, 5)
+# UNION ALL:        Table1(1, 2, 3), Table2(3, 4, 5) --> UNION ALL: (1, 2, 3, 3, 4, 5)	
+# FULL OUTER JOIN:  Table1(1, 2, 3), Table2(3, 4, 5) --> FULL OUTER JOIN: (1, 2, 3, 4, 5)
+# LEFT OUTER JOIN:  Table1(1, 2, 3), Table2(3, 4, 5) --> LEFT OUTER JOIN: (1, 2, 3)
+# RIGHT OUTER JOIN: Table1(1, 2, 3), Table2(3, 4, 5) --> RIGHT OUTER JOIN: (3, 4, 5)
+# INNER JOIN:       Table1(1, 2, 3), Table2(3, 4, 5) --> RIGHT OUTER JOIN: (3)
 
-  
+# INTERSECT:        Table1(1, 2, 3), Table2(3, 4, 5) --> INTERSECT: (3) --> Not in mySQL	
+# MINUS:	        Table1(1, 2, 3), Table2(3, 4, 5) --> MINUS T1-T2: (1, 2) --> Not in mySQL		
+#			        Table1(1, 2, 3), Table2(3, 4, 5) --> MINUS T2-T1: (4, 5) --> Not in mySQL
+# INTERSECT and MINUS are not supported by mySQL, but by mySQL we have "join".
+########################################################################################## 
+
+use bach;
+create table TAB1(Num int);
+create table TAB2(Num int);
+insert into TAB1 values(1), (2), (3);
+insert into TAB2 values(3), (4), (5);
+
+Select NUM From TAB1 UNION Select NUM From TAB2;                   # --> (1, 2, 3, 4, 5)
+Select NUM From TAB1 Union All Select NUM From TAB2;               # --> (1, 2, 3, 3, 4, 5)	
+Select * From TAB1 INNER JOIN TAB2 WHERE TAB1.NUM = TAB2.NUM; 	   # --> (3) Here can "ON" instead of "WHERE" be used
+Select * From TAB1 LEFT OUTER JOIN TAB2 ON TAB1.NUM = TAB2.NUM;    # --> (1, 2, 3) (3)
+Select * From TAB1 RIGHT OUTER JOIN TAB2 ON TAB1.NUM = TAB2.NUM;   # --> (3) (3, 4, 5)
+
+-- Select * From TAB1 FULL JOIN TAB2 ON TAB1.NUM = TAB2.NUM        # isn't supported in mySQL
+-- Select NUM From TAB1 INTERSECT Select NUM From TAB2;            # isn't supported in mySQL
+-- Select NUM From TAB1 MINUS Select NUM From TAB2;                # isn't supported in mySQL
+-- Select NUM From TAB2 MINUS Select NUM From TAB1;                # isn't supported in mySQL
+
+################################### SUB-Queries ##########################################
+# Sub-Query is a Query within an other Query
+# A--> Single Row Sub-Queries: =, >=, <=, !=   ==> Result: only one row
+# B--> Multi Rows Sub-Queries: IN, ANY, ALL    ==> Result: multi rows
+########################################################################################## 
+Select *From sakila.customer;
+
+# A--> Single Sub-Queries: =, >=, <=, !=
+   #1. Scenario: Take all first_name of people whose has address_id < address_id of 'LINDA'
+   Select first_name From sakila.customer Where customer.address_id < (Select customer.address_id From sakila.customer Where customer.first_name ='LINDA');
+
+   #2. Scenario: Take first_name of people whose has greatest address_id
+   Select customer.first_name From sakila.customer Where customer.customer_id = (Select Max(customer.customer_id) From sakila.customer);             # --> AUSTIN
+
+   #3. Scenario: Take first_name of people whose has 2nd max customer_id
+   Select customer.first_name From sakila.customer Where customer.customer_id = 
+	   (Select Max(customer.customer_id) From sakila.customer Where customer.customer_id < (Select Max(customer.customer_id) From sakila.customer)); # --> WADE
+       
+# B--> Multi Sub-Queries: IN, ANY, ALL
+	#1. IN:
+    Select * From sakila.payment Where rental_id IN (Select rental_id From sakila.payment Where amount = 4.99);
+    
+    #2. ANY:
+    Select Max(payment.rental_id) From sakila.payment; 																		# --> 16049
+    Select Max(payment.rental_id) From sakila.payment Where amount = 4.99; 													# --> 16032
+    Select * From sakila.payment Where rental_id < ANY (Select rental_id From sakila.payment Where amount = 4.99);  # --> every rows with rental_id < 16032
+    
+    #3. ALL
+	Select Min(payment.rental_id) From sakila.payment; 																		# --> 1
+    Select Min(payment.rental_id) From sakila.payment Where amount = 4.99; 													# --> 4
+    Select * From sakila.payment Where rental_id < ALL (Select rental_id From sakila.payment Where amount = 4.99);  # --> every rows with rental_id < 4
 
 
