@@ -290,7 +290,7 @@ Select *From sakila.customer;
    Select first_name From sakila.customer Where customer.address_id < (Select customer.address_id From sakila.customer Where customer.first_name ='LINDA');
 
    #2. Scenario: Take first_name of people whose has greatest address_id
-   Select customer.first_name From sakila.customer Where customer.customer_id = (Select Max(customer.customer_id) From sakila.customer);             # --> AUSTIN
+   Select customer.first_name From sakila.customer Where customer.customer_id = (Select Max(customer.customer_id) From sakila.customer);                 # --> AUSTIN
 
    #3. Scenario: Take first_name of people whose has 2nd max customer_id
    Select customer.first_name From sakila.customer Where customer.customer_id = 
@@ -301,13 +301,13 @@ Select *From sakila.customer;
     Select * From sakila.payment Where rental_id IN (Select rental_id From sakila.payment Where amount = 4.99);
     
     #2. ANY:
-    Select Max(payment.rental_id) From sakila.payment; 																		# --> 16049
-    Select Max(payment.rental_id) From sakila.payment Where amount = 4.99; 													# --> 16032
+    Select Max(payment.rental_id) From sakila.payment; 								    # --> 16049
+    Select Max(payment.rental_id) From sakila.payment Where amount = 4.99; 					    # --> 16032
     Select * From sakila.payment Where rental_id < ANY (Select rental_id From sakila.payment Where amount = 4.99);  # --> every rows with rental_id < 16032
     
     #3. ALL
-	Select Min(payment.rental_id) From sakila.payment; 																		# --> 1
-    Select Min(payment.rental_id) From sakila.payment Where amount = 4.99; 													# --> 4
+	Select Min(payment.rental_id) From sakila.payment; 							    # --> 1
+    Select Min(payment.rental_id) From sakila.payment Where amount = 4.99; 					    # --> 4
     Select * From sakila.payment Where rental_id < ALL (Select rental_id From sakila.payment Where amount = 4.99);  # --> every rows with rental_id < 4
 
 
