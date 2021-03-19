@@ -1,5 +1,7 @@
-
+#################################################
 #################### DATABASE ###################
+#################################################
+
 #1. Create a database: ==> then refresh !!!
 Create database BachTestDB1;
 Create Schema BachTestDB2;
@@ -143,10 +145,10 @@ Alter Table Private Rename Column City to Cities;    # ==> Rename a column-name
     Select * From Drinks where Favorite like 'K%';
  
 ################### TABLES FUNCTIONS ####################################
-# STRING - Function					#
-# Numeric - Function					#
-# Date - Function					#
-# Aggregate - Function					#
+# STRING - Function					                #
+# Numeric - Function					                #
+# Date - Function					                #
+# Aggregate - Function					                #
 ######################################################################### 
 
 # 1: STRING-Function: UPPER(), LOWER(), LENGTH(), TRIM(), NSTR(), SUBSTR(), SUBSTRING(), CONCAT()
@@ -232,10 +234,10 @@ Select MIN(SALARY) From Employees;
 Select MAX(SALARY) From Employees;
 Select COUNT(*) From Employees;
 
-################### TABLES Order of Execution ##########################
-#
-#        WHERE >> GROUP BY >> HAVING >> ORDER BY	#
-#				
+################### TABLES Order of Execution ###########################
+#									#	
+#        WHERE >> GROUP BY >> HAVING >> ORDER BY	                #
+#									#
 ######################################################################### 
 Select * from world.city;
 Select Name, count(*) from world.city group by Name;
@@ -246,20 +248,20 @@ Select CountryCode, SUM(Population) From world.city
 	Having SUM(Population) > 20000000 
 	Order By (Population) DESC;                     #-- > DESC: Order should be descending 
 
-################################### MULTI TABLES ########################################
-# !!!Conditions: same number of Columns, similar data types, in the same order!!!!
-# UNION :           Table1(1, 2, 3), Table2(3, 4, 5) --> UNION: (1, 2, 3, 4, 5)
-# UNION ALL:        Table1(1, 2, 3), Table2(3, 4, 5) --> UNION ALL: (1, 2, 3, 3, 4, 5)	
-# FULL OUTER JOIN:  Table1(1, 2, 3), Table2(3, 4, 5) --> FULL OUTER JOIN: (1, 2, 3, 4, 5)
-# LEFT OUTER JOIN:  Table1(1, 2, 3), Table2(3, 4, 5) --> LEFT OUTER JOIN: (1, 2, 3)
-# RIGHT OUTER JOIN: Table1(1, 2, 3), Table2(3, 4, 5) --> RIGHT OUTER JOIN: (3, 4, 5)
-# INNER JOIN:       Table1(1, 2, 3), Table2(3, 4, 5) --> RIGHT OUTER JOIN: (3)
-
-# INTERSECT:        Table1(1, 2, 3), Table2(3, 4, 5) --> INTERSECT: (3) --> Not in mySQL	
-# MINUS:	        Table1(1, 2, 3), Table2(3, 4, 5) --> MINUS T1-T2: (1, 2) --> Not in mySQL		
-#			        Table1(1, 2, 3), Table2(3, 4, 5) --> MINUS T2-T1: (4, 5) --> Not in mySQL
-# INTERSECT and MINUS are not supported by mySQL, but by mySQL we have "join".
-########################################################################################## 
+################################### MULTI TABLES ############################################################
+# !!!Conditions: same number of Columns, similar data types, in the same order!!!!			    #	 	
+# UNION :           Table1(1, 2, 3), Table2(3, 4, 5) --> UNION: (1, 2, 3, 4, 5)				    #	
+# UNION ALL:        Table1(1, 2, 3), Table2(3, 4, 5) --> UNION ALL: (1, 2, 3, 3, 4, 5)	 		    #		
+# FULL OUTER JOIN:  Table1(1, 2, 3), Table2(3, 4, 5) --> FULL OUTER JOIN: (1, 2, 3, 4, 5)		    #
+# LEFT OUTER JOIN:  Table1(1, 2, 3), Table2(3, 4, 5) --> LEFT OUTER JOIN: (1, 2, 3)			    #	
+# RIGHT OUTER JOIN: Table1(1, 2, 3), Table2(3, 4, 5) --> RIGHT OUTER JOIN: (3, 4, 5)			    #
+# INNER JOIN:       Table1(1, 2, 3), Table2(3, 4, 5) --> RIGHT OUTER JOIN: (3)				    #
+													    #
+# INTERSECT:        Table1(1, 2, 3), Table2(3, 4, 5) --> INTERSECT: (3) --> Not in mySQL		    #	
+# MINUS:	        Table1(1, 2, 3), Table2(3, 4, 5) --> MINUS T1-T2: (1, 2) --> Not in mySQL	    #	
+#			        Table1(1, 2, 3), Table2(3, 4, 5) --> MINUS T2-T1: (4, 5) --> Not in mySQL   #
+# INTERSECT and MINUS are not supported by mySQL, but by mySQL we have "join".				    #	
+############################################################################################################ 
 
 use bach;
 create table TAB1(Num int);
@@ -279,9 +281,9 @@ Select * From TAB1 RIGHT OUTER JOIN TAB2 ON TAB1.NUM = TAB2.NUM;   # --> (3) (3,
 -- Select NUM From TAB2 MINUS Select NUM From TAB1;                # isn't supported in mySQL
 
 ################################### SUB-Queries ##########################################
-# Sub-Query is a Query within an other Query
-# A--> Single Row Sub-Queries: =, >=, <=, !=   ==> Result: only one row
-# B--> Multi Rows Sub-Queries: IN, ANY, ALL    ==> Result: multi rows
+# Sub-Query is a Query within an other Query						 #
+# A--> Single Row Sub-Queries: =, >=, <=, !=   ==> Result: only one row			 #
+# B--> Multi Rows Sub-Queries: IN, ANY, ALL    ==> Result: multi rows			 #
 ########################################################################################## 
 Select *From sakila.customer;
 
